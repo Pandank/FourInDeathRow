@@ -30,7 +30,7 @@ namespace GrpArbFourInDeathRow
         {
 
             var game = new Game();
-            var thread = new Thread(game.StartClient);
+            var thread = new Thread(game.StartGame);
             thread.Start();
 
 
