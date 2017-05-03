@@ -33,7 +33,7 @@ namespace GrpArbFourInDeathRow
 
         }
 
-        private void SendMoveToServer(int x, int y)
+        public void SendMoveToServer(int x, int y)
         {
             var messageGame = new MessageGame();
             messageGame.CoordX = x;
@@ -105,6 +105,25 @@ namespace GrpArbFourInDeathRow
             //RefreshUI
             Play();
 
+        }
+
+        public void CalculateMove(string buttonName)
+        {
+            //col2btn
+            int column = buttonName[3];
+            int validYpos = 10;
+            for (int y = 5; y <= 0; y--)
+            {
+                if (GameBoard[column,y] != 0)
+                {
+                    if (validYpos< y)
+                    {
+                        validYpos = y;
+                    }
+                }   
+
+            }
+            SendMoveToServer(column,validYpos);
         }
     }
 }
