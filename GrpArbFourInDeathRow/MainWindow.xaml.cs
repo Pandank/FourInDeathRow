@@ -21,10 +21,14 @@ namespace GrpArbFourInDeathRow
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Game game;
         public MainWindow()
         {
             InitializeComponent();
-            
+            game = new Game();
+            var gameThread = new Thread(game.StartGame);
+            gameThread.Start();
+                        
             for (int x = 0; x < 7; x++)
             {
                 for (int y = 0; y < 6; y++)
@@ -42,6 +46,16 @@ namespace GrpArbFourInDeathRow
                     graphicsBox.Children.Add(newDot);
                 }
             }
+        }
+
+
+        private void GameBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            MessageBox.Show(button.Name);
+
+            game.CalculateMove(button.Name);
+
         }
     }
 }
