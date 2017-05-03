@@ -28,18 +28,32 @@ namespace GrpArbFourInDeathRow
             game = new Game();
             var gameThread = new Thread(game.StartGame);
             gameThread.Start();
-                            
-            for (int x = 0; x < 6; x++)
-            {
-                for (int y = 0; y < 5; y++)
-                {
-                    System.Windows.Media.EllipseGeometry svgItem = new EllipseGeometry();
-                    svgItem.RadiusX = 26;
-                    svgItem.RadiusY = 26;
-                    svgItem.Center = new System.Windows.Point(15.0, 15.0);
-                    /*< Ellipse Canvas.Top = "0" Canvas.Left = "0" Margin = "2" Fill = "White" Stroke = "Black" ></ Ellipse >
 
-                    graphicsBox.Children.Add(svgItem);*/
+            int[,] GameBoard = new int[7, 6];
+            GameBoard[0,0] = 1;
+                        
+            for (int x = 0; x < 7; x++)
+            {
+                for (int y = 6; y >= 0; y--)
+                {
+                    Ellipse newDot = new Ellipse();
+                    newDot.Width = 26;
+                    newDot.Height = 26;
+                    newDot.Margin = new System.Windows.Thickness(2);
+                    newDot.StrokeThickness = 1;
+                    newDot.Stroke = new SolidColorBrush(Colors.DarkGray);
+                    if (GameBoard[x, y] == 1)
+                        newDot.Fill = new SolidColorBrush(Colors.Red);
+                    else if (GameBoard[x, y] == 2)
+                        newDot.Fill = new SolidColorBrush(Colors.Yellow);
+                    else
+                        newDot.Fill = new SolidColorBrush(Colors.White);
+                    Canvas.SetLeft(newDot, (x*30));
+                    Canvas.SetTop(newDot, (y*30));
+
+                    //game.
+
+                    graphicsBox.Children.Add(newDot);
                 }
             }
         }
