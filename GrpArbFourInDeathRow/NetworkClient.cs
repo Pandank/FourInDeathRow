@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Threading;
 
 namespace GrpArbFourInDeathRow
 {
-    public class NetworkClient
+    partial class Program
     {
+        static void Mains(string[] args)
+        {
+            Client myClient = new Client();
+
+            Thread clientThread = new Thread(myClient.Start);
+            clientThread.Start();
+            clientThread.Join();
+        }
     }
 }
