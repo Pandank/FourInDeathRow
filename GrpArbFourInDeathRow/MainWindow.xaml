@@ -36,8 +36,7 @@
                 <Button Width="26" Height="26" Margin="5" HorizontalAlignment="Left" Name="row1col1"></Button>
                 -->
         </Canvas>
-            <Button Content="&#xD;&#xA;test&#xD;&#xA;t" HorizontalAlignment="Left" Margin="386,137,0,0" VerticalAlignment="Top" Width="75" Click="test"/>
-        
+
     </StackPanel>
     
 </Window>

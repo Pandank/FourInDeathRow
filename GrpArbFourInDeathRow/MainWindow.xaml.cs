@@ -28,13 +28,10 @@ namespace GrpArbFourInDeathRow
 
         private void test(object sender, RoutedEventArgs e)
         {
-            
+
             var game = new Game();
-         var thread = new Thread(game.StartClient);
-
+            var thread = new Thread(game.StartClient);
             thread.Start();
-
-            Thread.Sleep(500);
 
 
         }

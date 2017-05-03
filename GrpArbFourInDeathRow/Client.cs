@@ -2,70 +2,95 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using GrpArbFourInDeathRow_MessageLib;
+using Newtonsoft.Json;
 
 namespace GrpArbFourInDeathRow
 {
-    partial class Program
+
+    public class Client
     {
-        public class Client
+        public Client(Game game)
         {
-            private TcpClient client;
+            _game = game;
+        }
+       
+        private TcpClient client;
+        private Game _game;
 
-            public void Start()
+        public void Start()
+        {
+            client = new TcpClient("192.168.25.129", 5000);
+
+            Thread listenerThread = new Thread(Listen);
+            listenerThread.Start();
+
+            Thread senderThread = new Thread(Send);
+            senderThread.Start();
+
+            senderThread.Join();
+            listenerThread.Join();
+        }
+
+        public void Listen()
+        {
+            MessageGame messageGame = new MessageGame { Version = 1 };
+
+            string message = "";
+
+            try
             {
-                client = new TcpClient("192.168.25.129", 5000);
-
-                Thread listenerThread = new Thread(Send);
-                listenerThread.Start();
-
-                Thread senderThread = new Thread(Listen);
-                senderThread.Start();
-
-                senderThread.Join();
-                listenerThread.Join();
+                while (true)
+                {
+                    NetworkStream n = client.GetStream();
+                    message = new BinaryReader(n).ReadString();
+                    messageGame.FromJson(message);
+                    _game.ProcessInput(messageGame);
+                }
             }
-
-            public void Listen()
+            catch (Exception ex)
             {
-                string message = "";
-
-                try
-                {
-                    while (true)
-                    {
-                        NetworkStream n = client.GetStream();
-                        message = new BinaryReader(n).ReadString();
-                        Console.WriteLine("Other: " + message);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                Console.WriteLine(ex.Message);
             }
+        }
 
-            public void Send()
+        public void Send(MessageGame messageGame)
+        {
+
+            string message = "";
+            message = messageGame.ToJson();
+            try
             {
-                string message = "";
+                NetworkStream n = client.GetStream();
+                BinaryWriter w = new BinaryWriter(n);
+                w.Write(message);
+                w.Flush();
 
-                try
-                {
-                    while (!message.Equals("quit"))
-                    {
-                        NetworkStream n = client.GetStream();
 
-                        message = Console.ReadLine();
-                        BinaryWriter w = new BinaryWriter(n);
-                        w.Write(message);
-                        w.Flush();
-                    }
+                //client.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public void Send( )
+        {
 
-                    client.Close();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+            string message = "";
+            try
+            {
+                NetworkStream n = client.GetStream();
+                BinaryWriter w = new BinaryWriter(n);
+                w.Write(message);
+                w.Flush();
+
+
+                //client.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
