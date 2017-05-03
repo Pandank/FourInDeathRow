@@ -24,6 +24,20 @@ namespace GrpArbFourInDeathRow
         public MainWindow()
         {
             InitializeComponent();
+                            
+            for (int x = 0; x < 6; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    System.Windows.Media.EllipseGeometry svgItem = new EllipseGeometry();
+                    svgItem.RadiusX = 26;
+                    svgItem.RadiusY = 26;
+                    svgItem.Center = new System.Windows.Point(15.0, 15.0);
+                    /*< Ellipse Canvas.Top = "0" Canvas.Left = "0" Margin = "2" Fill = "White" Stroke = "Black" ></ Ellipse >
+
+                    graphicsBox.Children.Add(svgItem);*/
+                }
+            }
         }
 
         private void test(object sender, RoutedEventArgs e)
