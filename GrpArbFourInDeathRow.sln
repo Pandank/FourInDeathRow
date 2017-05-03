@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpArbFourInDeathRow", "GrpArbFourInDeathRow\GrpArbFourInDeathRow.csproj", "{DD16B619-FF10-4C82-8FB6-7CE2B1B4CD90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpArbFourInDeathRow_Server", "GrpArbFourInDeathRow_Server\GrpArbFourInDeathRow_Server.csproj", "{58D2918B-67EB-4E6C-AD65-487328096A73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpArbFourInDeathRow_MessageLib", "GrpArbFourInDeathRow_MessageLib\GrpArbFourInDeathRow_MessageLib.csproj", "{CC8547CB-9074-4841-90AD-D5E7B15613DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{DD16B619-FF10-4C82-8FB6-7CE2B1B4CD90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD16B619-FF10-4C82-8FB6-7CE2B1B4CD90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD16B619-FF10-4C82-8FB6-7CE2B1B4CD90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58D2918B-67EB-4E6C-AD65-487328096A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58D2918B-67EB-4E6C-AD65-487328096A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58D2918B-67EB-4E6C-AD65-487328096A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58D2918B-67EB-4E6C-AD65-487328096A73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC8547CB-9074-4841-90AD-D5E7B15613DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC8547CB-9074-4841-90AD-D5E7B15613DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC8547CB-9074-4841-90AD-D5E7B15613DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC8547CB-9074-4841-90AD-D5E7B15613DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
