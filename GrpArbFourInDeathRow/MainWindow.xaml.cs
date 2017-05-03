@@ -28,10 +28,13 @@ namespace GrpArbFourInDeathRow
             game = new Game();
             var gameThread = new Thread(game.StartGame);
             gameThread.Start();
+
+            int[,] GameBoard = new int[7, 6];
+            GameBoard[0,0] = 1;
                         
             for (int x = 0; x < 7; x++)
             {
-                for (int y = 0; y < 6; y++)
+                for (int y = 6; y >= 0; y--)
                 {
                     Ellipse newDot = new Ellipse();
                     newDot.Width = 26;
@@ -39,9 +42,16 @@ namespace GrpArbFourInDeathRow
                     newDot.Margin = new System.Windows.Thickness(2);
                     newDot.StrokeThickness = 1;
                     newDot.Stroke = new SolidColorBrush(Colors.DarkGray);
-                    newDot.Fill = new SolidColorBrush(Colors.White);
+                    if (GameBoard[x, y] == 1)
+                        newDot.Fill = new SolidColorBrush(Colors.Red);
+                    else if (GameBoard[x, y] == 2)
+                        newDot.Fill = new SolidColorBrush(Colors.Yellow);
+                    else
+                        newDot.Fill = new SolidColorBrush(Colors.White);
                     Canvas.SetLeft(newDot, (x*30));
                     Canvas.SetTop(newDot, (y*30));
+
+                    //game.
 
                     graphicsBox.Children.Add(newDot);
                 }
