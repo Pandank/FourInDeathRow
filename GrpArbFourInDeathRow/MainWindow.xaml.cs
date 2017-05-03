@@ -48,7 +48,7 @@ namespace GrpArbFourInDeathRow
         private void GameBtn_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            MessageBox.Show(button.Name);
+            //MessageBox.Show(button.Name);
 
             game.CalculateMove(button.Name);
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using GrpArbFourInDeathRow_MessageLib;
 
 namespace GrpArbFourInDeathRow_Server
 {
@@ -42,15 +43,46 @@ namespace GrpArbFourInDeathRow_Server
             }
         }
 
-        public void Broadcast(ClientHandler client, string message)
+        public void Broadcast(ClientHandler client, string messageJson)
         {
+            MessageGame messageGame = new MessageGame();
+            messageGame = messageGame.FromJson(messageJson);
+            if (messageGame.MessageType == "Auth")
+            {
+                messageGame.MessageType = "AuthResponse";
+
+                if (client == clients[0])
+                {
+                    messageGame.PlayerName = "Player1";
+                }
+                else if (client == clients[1])
+                {
+                    messageGame.PlayerName = "Player2";
+
+                }
+                else
+                {
+                    messageGame.PlayerName = "SOMETHING WENT WRONG";
+
+                }
+                NetworkStream n = client.tcpclient.GetStream();
+                BinaryWriter w = new BinaryWriter(n);
+                messageJson = messageGame.ToJson();
+                w.Write(messageJson);
+                w.Flush();
+                Console.WriteLine("AUTHoutput:"+messageJson);
+            }
+
+
+
+
             foreach (ClientHandler tmpClient in clients)
             {
                 if (tmpClient != client)
                 {
                     NetworkStream n = tmpClient.tcpclient.GetStream();
                     BinaryWriter w = new BinaryWriter(n);
-                    w.Write(message);
+                    w.Write(messageJson);
                     w.Flush();
                 }
                 else if (clients.Count() == 1)
