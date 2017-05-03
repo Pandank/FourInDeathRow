@@ -28,6 +28,7 @@ namespace GrpArbFourInDeathRow_Server
 
                     Thread clientThread = new Thread(newClient.Run);
                     clientThread.Start();
+                    Console.WriteLine("hejhej");
                 }
             }
             catch (Exception ex)

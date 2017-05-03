@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,19 @@ namespace GrpArbFourInDeathRow
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void test(object sender, RoutedEventArgs e)
+        {
+            
+            var game = new Game();
+         var thread = new Thread(game.StartClient);
+
+            thread.Start();
+
+            Thread.Sleep(500);
+
+
         }
     }
 }

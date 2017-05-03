@@ -13,7 +13,7 @@ namespace GrpArbFourInDeathRow
 
             public void Start()
             {
-                client = new TcpClient("192.168.220.124", 5000);
+                client = new TcpClient("192.168.25.129", 5000);
 
                 Thread listenerThread = new Thread(Send);
                 listenerThread.Start();
