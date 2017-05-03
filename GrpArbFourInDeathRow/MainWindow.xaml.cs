@@ -40,14 +40,11 @@ namespace GrpArbFourInDeathRow
             }
         }
 
-        private void test(object sender, RoutedEventArgs e)
+
+        private void GameBtn_Click(object sender, RoutedEventArgs e)
         {
-
-            var game = new Game();
-            var thread = new Thread(game.StartGame);
-            thread.Start();
-
-
+            Button button = (Button)sender;
+            MessageBox.Show(button.Name);
         }
     }
 }

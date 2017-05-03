@@ -56,13 +56,13 @@
                     <Ellipse Canvas.Top="150" Canvas.Left="0" Width="26" Height="26" Margin="2" Fill="White" Stroke="Black"></Ellipse>
                 </Canvas>
                 
-                <Button Background="Transparent" Name="Col1Btn" Grid.RowSpan="2"></Button>
-                <Button Background="Transparent" Grid.Column="1" Name="Col2Btn" Grid.RowSpan="2"/>
-                <Button Background="Transparent" Grid.Column="2" Name="Col3Btn" Grid.RowSpan="2"/>
-                <Button Background="Transparent" Grid.Column="3" Name="Col4Btn" Grid.RowSpan="2"/>
-                <Button Background="Transparent" Grid.Column="4" Name="Col5Btn" Grid.RowSpan="2"/>
-                <Button Background="Transparent" Grid.Column="5" Name="Col6Btn" Grid.RowSpan="2"/>
-                <Button Background="Transparent" Grid.Column="6" Name="Col7Btn" Grid.RowSpan="2"/>
+                <Button Background="Transparent" Name="Col1Btn" Grid.RowSpan="2" Click="GameBtn_Click"></Button>
+                <Button Background="Transparent" Grid.Column="1" Name="Col2Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Background="Transparent" Grid.Column="2" Name="Col3Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Background="Transparent" Grid.Column="3" Name="Col4Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Background="Transparent" Grid.Column="4" Name="Col5Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Background="Transparent" Grid.Column="5" Name="Col6Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Background="Transparent" Grid.Column="6" Name="Col7Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
