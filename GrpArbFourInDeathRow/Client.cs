@@ -48,7 +48,6 @@ namespace GrpArbFourInDeathRow
                     if (messageGame.MessageType != "AuthRespone")
                     {
                         _game.ProcessInput(messageGame);
-
                     }
                 }
             }

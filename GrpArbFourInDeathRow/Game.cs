@@ -37,12 +37,7 @@ namespace GrpArbFourInDeathRow
             myClient.Send(messageGame);
         }
 
-        public void Play()
-        {
-             //todo get move from Click event on buttons
 
-
-        }
 
         public void SendMoveToServer(int x, int y)
         {

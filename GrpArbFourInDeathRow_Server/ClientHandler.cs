@@ -26,7 +26,7 @@ namespace GrpArbFourInDeathRow_Server
                     NetworkStream n = tcpclient.GetStream();
                     var message = new BinaryReader(n).ReadString();
                     myServer.Broadcast(this, message);
-                    Console.WriteLine("json" + message);
+                    Console.WriteLine("ClientHandlerJSON: " + message);
                 }
 
 
