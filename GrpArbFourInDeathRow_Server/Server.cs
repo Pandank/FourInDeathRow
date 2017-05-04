@@ -90,6 +90,7 @@ namespace GrpArbFourInDeathRow_Server
                     Console.WriteLine("MOVEoutput:" + messageJson);
                     break;
                 case "Begin":
+
                     w.Write(messageJson);
                     w.Flush();
                     Console.WriteLine("BEGINoutput: " + messageJson);
