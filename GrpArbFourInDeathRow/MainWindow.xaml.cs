@@ -34,7 +34,7 @@ namespace GrpArbFourInDeathRow
                         
             for (int x = 0; x < 7; x++)
             {
-                for (int y = 6; y >= 0; y--)
+                for (int y = 5; y >= 0; y--)
                 {
                     Ellipse newDot = new Ellipse();
                     newDot.Width = 26;
