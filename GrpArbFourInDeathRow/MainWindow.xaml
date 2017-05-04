@@ -71,6 +71,7 @@
             <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center">Spelarnamn</Label>
             <Label FontSize="20" Foreground="Black" HorizontalAlignment="Center">Vs.</Label>
             <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center">Motståndarnamn</Label>
+            <Button Height="20" Width="80" Content="Start Game" Click="StartBtn_Click" />
         </StackPanel>
     </Grid>
 </Window>

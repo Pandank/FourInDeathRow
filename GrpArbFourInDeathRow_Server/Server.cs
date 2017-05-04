@@ -29,7 +29,6 @@ namespace GrpArbFourInDeathRow_Server
 
                     Thread clientThread = new Thread(newClient.Run);
                     clientThread.Start();
-                    Console.WriteLine("hejhej");
                 }
             }
             catch (Exception ex)
@@ -47,52 +46,75 @@ namespace GrpArbFourInDeathRow_Server
         {
             MessageGame messageGame = new MessageGame();
             messageGame = messageGame.FromJson(messageJson);
-            if (messageGame.MessageType == "Auth")
+            NetworkStream n = client.tcpclient.GetStream();
+            BinaryWriter w = new BinaryWriter(n);
+            switch (messageGame.MessageType)
             {
-                messageGame.MessageType = "AuthResponse";
 
-                if (client == clients[0])
-                {
-                    messageGame.PlayerName = "Player1";
-                }
-                else if (client == clients[1])
-                {
-                    messageGame.PlayerName = "Player2";
+                case "Auth":
+                    messageGame.MessageType = "AuthResponse";
+                    if (client == clients[0])
+                    {
+                        messageGame.PlayerName = "Player1";
 
-                }
-                else
-                {
-                    messageGame.PlayerName = "SOMETHING WENT WRONG";
-
-                }
-                NetworkStream n = client.tcpclient.GetStream();
-                BinaryWriter w = new BinaryWriter(n);
-                messageJson = messageGame.ToJson();
-                w.Write(messageJson);
-                w.Flush();
-                Console.WriteLine("AUTHoutput:"+messageJson);
-            }
+                        messageJson = messageGame.ToJson();
+                        w.Write(messageJson);
+                        w.Flush();
+                    }
+                    else if (client == clients[1])
+                    {
+                        messageGame.PlayerName = "Player2";
+                        messageJson = messageGame.ToJson();
+                        w.Write(messageJson);
+                        w.Flush();
+                        StartGameSeassion(client);
 
 
-
-
-            foreach (ClientHandler tmpClient in clients)
-            {
-                if (tmpClient != client)
-                {
-                    NetworkStream n = tmpClient.tcpclient.GetStream();
-                    BinaryWriter w = new BinaryWriter(n);
+                    }
+                    else
+                    {
+                        messageGame.PlayerName = "SOMETHING WENT WRONG";
+                    }
+                    Console.WriteLine("AUTHoutput:" + messageJson);
+                    break;
+                case "Move":
+                    foreach (var clientHandler in clients)
+                    {
+                        NetworkStream nTemp = clientHandler.tcpclient.GetStream();
+                        BinaryWriter wTemp = new BinaryWriter(nTemp);
+                        messageGame.MessageType = "MoveResponse";
+                        messageJson = messageGame.ToJson();
+                        wTemp.Write(messageJson);
+                        wTemp.Flush();
+                    }
+                    Console.WriteLine("MOVEoutput:" + messageJson);
+                    break;
+                case "Begin":
                     w.Write(messageJson);
                     w.Flush();
-                }
-                else if (clients.Count() == 1)
-                {
-                    NetworkStream n = tmpClient.tcpclient.GetStream();
-                    BinaryWriter w = new BinaryWriter(n);
-                    w.Write("Sorry, you are alone...");
-                    w.Flush();
-                }
+                    Console.WriteLine("BEGINoutput: " + messageJson);
+                    break;
+                case "Error":
+                    break;
+                default:
+                    break;
             }
+
+        }
+
+        private void StartGameSeassion(ClientHandler client)
+        {
+            Random random = new Random();
+            MessageGame messageGame = new MessageGame
+            {
+                Version = 1,
+                MessageType = "Begin",
+                PlayerName = "Player"+random.Next(1,3)
+                
+            };
+            var messageJson = messageGame.ToJson();
+            Broadcast(client, messageJson);
+
         }
 
         public void DisconnectClient(ClientHandler client)

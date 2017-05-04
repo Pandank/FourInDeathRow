@@ -44,11 +44,24 @@ namespace GrpArbFourInDeathRow
                 {
                     NetworkStream n = client.GetStream();
                     message = new BinaryReader(n).ReadString();
-                    messageGame.FromJson(message);
-                    if (messageGame.MessageType != "AuthRespone")
+                    messageGame = messageGame.FromJson(message);
+                    switch (messageGame.MessageType)
                     {
-                        _game.ProcessInput(messageGame);
+                        case "AuthResponse":
+                            _game.AuthResponse(messageGame);
+                            break;
+                        case "MoveResponse":
+                            _game.ProcessMove(messageGame);
+                            break;
+                        case "Begin":
+                            _game.Begin(messageGame);
+                            break;
+                        case "Error":
+                            break;
+                        default:
+                            break;
                     }
+
                 }
             }
             catch (Exception ex)

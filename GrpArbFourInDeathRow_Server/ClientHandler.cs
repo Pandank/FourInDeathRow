@@ -18,6 +18,7 @@ namespace GrpArbFourInDeathRow_Server
         public void Run()
         {
             var messageGame = new MessageGame();
+
             try
             {
 
@@ -25,8 +26,13 @@ namespace GrpArbFourInDeathRow_Server
                 {
                     NetworkStream n = tcpclient.GetStream();
                     var message = new BinaryReader(n).ReadString();
+                    messageGame = messageGame.FromJson(message);
+
+                    Console.WriteLine("INPUT: " + message);
                     myServer.Broadcast(this, message);
-                    Console.WriteLine("ClientHandlerJSON: " + message);
+
+
+
                 }
 
 
