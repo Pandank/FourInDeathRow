@@ -25,8 +25,7 @@ namespace GrpArbFourInDeathRow
         public MainWindow()
         {
             InitializeComponent();
-
-
+            
         }
 
         public void DrawBoard()

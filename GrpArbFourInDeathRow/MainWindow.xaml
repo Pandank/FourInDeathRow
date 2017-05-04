@@ -6,6 +6,29 @@
         xmlns:local="clr-namespace:GrpArbFourInDeathRow"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            BorderThickness="1"
+                            BorderBrush="Transparent" 
+                            Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
@@ -15,14 +38,14 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="5*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="24" Foreground="Blue" HorizontalAlignment="Center" VerticalAlignment="Center">Four In A Death Row</TextBlock>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontSize="24" FontWeight="Bold" Foreground="Blue" HorizontalAlignment="Center" VerticalAlignment="Center">Four In A Death Row</TextBlock>
         <!--
         <StackPanel Name="buttonField">
             
         </StackPanel>
         -->
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Grid Width="210" Height="180" Name="myGrid">
+            <Grid Width="210" Height="180" Background="LightGray" Name="myGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
@@ -36,7 +59,7 @@
                     <RowDefinition Height="31*" />
                     <RowDefinition Height="14*"/>
                 </Grid.RowDefinitions>
-                <Canvas Width="210" Height="180" Background="AliceBlue" Grid.ColumnSpan="7" Grid.RowSpan="2" Name="graphicsBox">
+                <Canvas Width="210" Height="180" Grid.ColumnSpan="7" Grid.RowSpan="2" Name="graphicsBox">
                     <!--
                     <Ellipse Canvas.Top="0" Canvas.Left="0" Width="26" Height="26" Margin="2" Fill="White" Stroke="Black"></Ellipse>
                     <Ellipse Canvas.Top="0" Canvas.Left="30" Width="26" Height="26" Margin="2" Fill="White" Stroke="Black"></Ellipse>
@@ -57,21 +80,22 @@
                     <Ellipse Canvas.Top="150" Canvas.Left="0" Width="26" Height="26" Margin="2" Fill="White" Stroke="Black"></Ellipse>
                     -->
                 </Canvas>
-                
-                <Button Background="Transparent" Name="Col1Btn" Grid.RowSpan="2" Click="GameBtn_Click"></Button>
-                <Button Background="Transparent" Grid.Column="1" Name="Col2Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
-                <Button Background="Transparent" Grid.Column="2" Name="Col3Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
-                <Button Background="Transparent" Grid.Column="3" Name="Col4Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
-                <Button Background="Transparent" Grid.Column="4" Name="Col5Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
-                <Button Background="Transparent" Grid.Column="5" Name="Col6Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
-                <Button Background="Transparent" Grid.Column="6" Name="Col7Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+
+                <Button Style="{StaticResource MyButtonStyle}" Name="Col1Btn" Grid.RowSpan="2" Click="GameBtn_Click"></Button>
+                <Button Style="{StaticResource MyButtonStyle}" Grid.Column="1" Name="Col2Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Style="{StaticResource MyButtonStyle}" Grid.Column="2" Name="Col3Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Style="{StaticResource MyButtonStyle}" Grid.Column="3" Name="Col4Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Style="{StaticResource MyButtonStyle}" Grid.Column="4" Name="Col5Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Style="{StaticResource MyButtonStyle}" Grid.Column="5" Name="Col6Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+                <Button Style="{StaticResource MyButtonStyle}" Grid.Column="6" Name="Col7Btn" Grid.RowSpan="2" Click="GameBtn_Click" />
+
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center">Spelarnamn</Label>
-            <Label FontSize="20" Foreground="Black" HorizontalAlignment="Center">Vs.</Label>
-            <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center">Motståndarnamn</Label>
-            <Button Height="20" Width="80" Content="Start Game" Click="StartBtn_Click" />
+            <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center" FontWeight="DemiBold">Spelarnamn</Label>
+            <Label FontSize="20" Foreground="Black" HorizontalAlignment="Center" FontWeight="Black">Vs.</Label>
+            <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center" FontWeight="DemiBold">Motståndarnamn</Label>
+            <Button Height="20" Width="80" Content="Start Game" Click="StartBtn_Click" Margin="0,55,0,0" />
         </StackPanel>
     </Grid>
 </Window>
