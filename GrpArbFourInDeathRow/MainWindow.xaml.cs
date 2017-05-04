@@ -62,7 +62,7 @@ namespace GrpArbFourInDeathRow
 
             int[] coords = game.CalculateMove(button.Name);
 
-            if (coords[1] <=5 && coords[1]>=0)
+            if (coords[1] <= 5 && coords[1] >= 0)
             {
                 game.SendMoveToServer(coords[0], coords[1]);
                 //we dont need this but keep it for now
@@ -71,9 +71,30 @@ namespace GrpArbFourInDeathRow
                 //    //button.Click -= GameBtn_Click;
                 //}
             }
-            
-            
+
+
         }
+
+        public void LockGameBoard()
+        {
+
+            foreach (object o in myGrid.Children)
+            {
+                if (o is Button button)
+                    button.Click -= GameBtn_Click;
+            }
+        }
+
+        public void UnlockGameBoard()
+        {
+
+            foreach (object o in myGrid.Children)
+            {
+                if (o is Button button)
+                    button.Click += GameBtn_Click;
+            }
+        }
+        
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {

@@ -33,8 +33,7 @@ namespace GrpArbFourInDeathRow
             InitiateBoard();
             StartClient();
             GetUserName();
-
-
+            _mainWindow.Dispatcher.Invoke(_mainWindow.LockGameBoard);
         }
 
         private void GetUserName()
@@ -43,6 +42,7 @@ namespace GrpArbFourInDeathRow
             messageGame.MessageType = "Auth";
             messageGame.Text = "@UserName";
             myClient.Send(messageGame);
+
         }
 
 
@@ -55,7 +55,8 @@ namespace GrpArbFourInDeathRow
             messageGame.MessageType = "Move";
             messageGame.PlayerName = UserName;
             myClient.Send(messageGame);
-            LockGameBoard();
+            _mainWindow.Dispatcher.Invoke(_mainWindow.LockGameBoard);
+
         }
 
 
@@ -162,6 +163,7 @@ namespace GrpArbFourInDeathRow
                 }
                 _mainWindow.Dispatcher.Invoke(_mainWindow.DrawBoard);
                 CheckForWin();
+                Begin(messageGame);
             }
 
             catch (Exception e)
@@ -247,10 +249,10 @@ namespace GrpArbFourInDeathRow
 
         public void Begin(MessageGame messageGame)
         {
-            if (messageGame.PlayerName == UserName)
+            if (messageGame.PlayerName != UserName)
             {
                 //our turn
-                UnlockGameBoard();
+                _mainWindow.Dispatcher.Invoke(_mainWindow.UnlockGameBoard);
 
             }
             else
@@ -258,14 +260,6 @@ namespace GrpArbFourInDeathRow
                 //not our turn
             }
         }
-        private void LockGameBoard()
-        {
-            //lock the buttons
-        }
 
-        private void UnlockGameBoard()
-        {
-            //unlock the buttons
-        }
     }
 }
