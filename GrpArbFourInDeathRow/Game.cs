@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Common;
 using System.Threading;
 using GrpArbFourInDeathRow_MessageLib;
 
@@ -22,22 +24,27 @@ namespace GrpArbFourInDeathRow
         {
             InitiateBoard();
             StartClient();//todo get playerID to set PlayerName
+            GetUserName();
 
 
         }
 
-        public void Play()
+        private void GetUserName()
         {
-            SendMoveToServer(1, 1); //todo get move from Click event on buttons
-
-
+            var messageGame = new MessageGame();
+            messageGame.MessageType = "Auth";
+            messageGame.Text = "@UserName";
+            myClient.Send(messageGame);
         }
+
+
 
         public void SendMoveToServer(int x, int y)
         {
             var messageGame = new MessageGame();
             messageGame.CoordX = x;
             messageGame.CoordY = y;
+            messageGame.MessageType = "Move";
             messageGame.PlayerName = PlayerName;
             myClient.Send(messageGame);
         }
@@ -61,7 +68,7 @@ namespace GrpArbFourInDeathRow
             myClient = new Client(this);
             Thread clientThread = new Thread(myClient.Start);
             clientThread.Start();
-            clientThread.Join();
+            //clientThread.Join();
 
             //todo wait for server to tell us or player 2 to start
 
@@ -103,20 +110,20 @@ namespace GrpArbFourInDeathRow
                 GameBoard[newCoordX, newCoordY] = 2;
             }
             //RefreshUI
-            Play();
+            SendMoveToServer(newCoordX, newCoordY);
 
         }
 
         public void CalculateMove(string buttonName)
         {
             //col2btn
-            int column = buttonName[3];
-            int validYpos = 10;
-            for (int y = 5; y <= 0; y--)
+            int column = Int32.Parse(buttonName[3].ToString());
+            int validYpos = 6;
+            for (int y = 5; y >= 0; y--)
             {
-                if (GameBoard[column,y] != 0)
+                if (GameBoard[column-1,y] == 0)
                 {
-                    if (validYpos< y)
+                    if (validYpos> y)
                     {
                         validYpos = y;
                     }

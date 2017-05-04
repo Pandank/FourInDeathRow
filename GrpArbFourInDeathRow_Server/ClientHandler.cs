@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Sockets;
+using GrpArbFourInDeathRow_MessageLib;
 
 namespace GrpArbFourInDeathRow_Server
 {
@@ -16,23 +17,28 @@ namespace GrpArbFourInDeathRow_Server
 
         public void Run()
         {
+            var messageGame = new MessageGame();
             try
             {
-                string message = "";
-                while (!message.Equals("quit"))
+
+                while (messageGame.Text != "Quit")
                 {
                     NetworkStream n = tcpclient.GetStream();
-                    message = new BinaryReader(n).ReadString();
+                    var message = new BinaryReader(n).ReadString();
                     myServer.Broadcast(this, message);
-                    Console.WriteLine(message);
+                    Console.WriteLine("ClientHandlerJSON: " + message);
                 }
 
-                myServer.DisconnectClient(this);
-                tcpclient.Close();
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                myServer.DisconnectClient(this);
+                tcpclient.Close();
             }
         }
     }

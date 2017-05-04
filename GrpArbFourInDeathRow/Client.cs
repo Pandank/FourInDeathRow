@@ -14,7 +14,7 @@ namespace GrpArbFourInDeathRow
         {
             _game = game;
         }
-       
+
         private TcpClient client;
         private Game _game;
 
@@ -25,10 +25,10 @@ namespace GrpArbFourInDeathRow
             Thread listenerThread = new Thread(Listen);
             listenerThread.Start();
 
-            Thread senderThread = new Thread(Send);
-            senderThread.Start();
+            //Thread senderThread = new Thread(Send);
+            //senderThread.Start();
 
-            senderThread.Join();
+            //senderThread.Join();
             listenerThread.Join();
         }
 
@@ -45,7 +45,10 @@ namespace GrpArbFourInDeathRow
                     NetworkStream n = client.GetStream();
                     message = new BinaryReader(n).ReadString();
                     messageGame.FromJson(message);
-                    _game.ProcessInput(messageGame);
+                    if (messageGame.MessageType != "AuthRespone")
+                    {
+                        _game.ProcessInput(messageGame);
+                    }
                 }
             }
             catch (Exception ex)
@@ -58,6 +61,7 @@ namespace GrpArbFourInDeathRow
         {
 
             string message = "";
+            messageGame.Version = 1;
             message = messageGame.ToJson();
             try
             {
@@ -74,24 +78,24 @@ namespace GrpArbFourInDeathRow
                 Console.WriteLine(ex.Message);
             }
         }
-        public void Send( )
-        {
+        //public void Send( )
+        //{
 
-            string message = "";
-            try
-            {
-                NetworkStream n = client.GetStream();
-                BinaryWriter w = new BinaryWriter(n);
-                w.Write(message);
-                w.Flush();
+        //    string message = "tst";
+        //    try
+        //    {
+        //        NetworkStream n = client.GetStream();
+        //        BinaryWriter w = new BinaryWriter(n);
+        //        w.Write(message);
+        //        w.Flush();
 
 
-                //client.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        //        //client.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //}
     }
 }
