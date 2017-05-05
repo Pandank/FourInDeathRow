@@ -56,6 +56,9 @@ namespace GrpArbFourInDeathRow
                         case "Begin":
                             _game.Begin(messageGame);
                             break;
+                        case "GameBoardUpdate":
+                            _game.UpdateGameBoard(messageGame);
+                            break;
                         case "Error":
                             break;
                         default:
