@@ -20,7 +20,7 @@ namespace GrpArbFourInDeathRow
 
         public void Start()
         {
-            client = new TcpClient("192.168.25.73", 5000);
+            client = new TcpClient("192.168.25.129", 5000);
 
             Thread listenerThread = new Thread(Listen);
             listenerThread.Start();
@@ -55,6 +55,9 @@ namespace GrpArbFourInDeathRow
                             break;
                         case "Begin":
                             _game.Begin(messageGame);
+                            break;
+                        case "GameBoardUpdate":
+                            _game.UpdateGameBoard(messageGame);
                             break;
                         case "Error":
                             break;

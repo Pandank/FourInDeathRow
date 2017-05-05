@@ -25,31 +25,30 @@ namespace GrpArbFourInDeathRow
         public MainWindow()
         {
             InitializeComponent();
-            game = new Game();
-            var gameThread = new Thread(game.StartGame);
-            gameThread.Start();
+        }
 
-            //int[,] GameBoard = new int[7, 6];
-            //GameBoard[0,0] = 1;
-                        
-            for (int x = 0; x < 7; x++)
+        public void DrawBoard()
+        {
+            for (int y = 5; y >= 0; y--)
             {
-                for (int y = 5; y >= 0; y--)
+                for (int x = 6; x >= 0; x--)
                 {
-                    Ellipse newDot = new Ellipse();
-                    newDot.Width = 26;
-                    newDot.Height = 26;
-                    newDot.Margin = new System.Windows.Thickness(2);
-                    newDot.StrokeThickness = 1;
-                    newDot.Stroke = new SolidColorBrush(Colors.DarkGray);
-                    //if (game.GameBoard[x, y] == 1)
-                    //    newDot.Fill = new SolidColorBrush(Colors.Red);
-                    //else if (game.GameBoard[x, y] == 2)
-                    //    newDot.Fill = new SolidColorBrush(Colors.Yellow);
-                    //else
+                    Ellipse newDot = new Ellipse
+                    {
+                        Width = 26,
+                        Height = 26,
+                        Margin = new System.Windows.Thickness(2),
+                        StrokeThickness = 1,
+                        Stroke = new SolidColorBrush(Colors.DarkGray)
+                    };
+                    if (game.GameBoard[x, y] == 1)
+                        newDot.Fill = new SolidColorBrush(Colors.Red);
+                    else if (game.GameBoard[x, y] == 2)
+                        newDot.Fill = new SolidColorBrush(Colors.Yellow);
+                    else
                         newDot.Fill = new SolidColorBrush(Colors.White);
-                    Canvas.SetLeft(newDot, (x*30));
-                    Canvas.SetTop(newDot, (y*30));
+                    Canvas.SetLeft(newDot, (x * 30));
+                    Canvas.SetTop(newDot, (y * -30 + 150));
 
                     //game.
 
@@ -58,13 +57,54 @@ namespace GrpArbFourInDeathRow
             }
         }
 
-
         private void GameBtn_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             //MessageBox.Show(button.Name);
 
-            game.CalculateMove(button.Name);
+            int[] coords = game.CalculateMove(button.Name);
+
+            if (coords[1] <= 5 && coords[1] >= 0)
+            {
+                game.SendMoveToServer(coords[0], coords[1]);
+                //we dont need this but keep it for now
+                //if (coords[1]==5)
+                //{
+                //    //button.Click -= GameBtn_Click;
+                //}
+            }
+
+
+        }
+
+        public void LockGameBoard()
+        {
+
+            foreach (object o in myGrid.Children)
+            {
+                if (o is Button button)
+                    button.Click -= GameBtn_Click;
+            }
+        }
+
+        public void UnlockGameBoard()
+        {
+
+            foreach (object o in myGrid.Children)
+            {
+                if (o is Button button)
+                    button.Click += GameBtn_Click;
+            }
+        }
+        
+
+        private void StartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            game = new Game(this);
+            var gameThread = new Thread(game.StartGame);
+            gameThread.Start();
+
+            DrawBoard();
 
         }
     }
