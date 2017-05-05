@@ -3,7 +3,6 @@ using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 using GrpArbFourInDeathRow_MessageLib;
-using Newtonsoft.Json;
 
 namespace GrpArbFourInDeathRow
 {
@@ -14,7 +13,6 @@ namespace GrpArbFourInDeathRow
         {
             _game = game;
         }
-
         private TcpClient client;
         private Game _game;
 
@@ -24,11 +22,6 @@ namespace GrpArbFourInDeathRow
 
             Thread listenerThread = new Thread(Listen);
             listenerThread.Start();
-
-            //Thread senderThread = new Thread(Send);
-            //senderThread.Start();
-
-            //senderThread.Join();
             listenerThread.Join();
         }
 
@@ -50,9 +43,6 @@ namespace GrpArbFourInDeathRow
                         case "AuthResponse":
                             _game.AuthResponse(messageGame);
                             break;
-                        //case "MoveResponse":
-                        //    _game.ProcessMove(messageGame);
-                        //    break;
                         case "StartGame":
                             _game.StartGame(messageGame);
                             break;
@@ -62,12 +52,9 @@ namespace GrpArbFourInDeathRow
                         case "GameOver":
                             _game.GameOver(messageGame);
                             break;
-                        case "Error":
-                            break;
-                        default:
+                            default:
                             break;
                     }
-
                 }
             }
             catch (Exception ex)
@@ -75,10 +62,8 @@ namespace GrpArbFourInDeathRow
                 Console.WriteLine(ex.Message);
             }
         }
-
         public void Send(MessageGame messageGame)
         {
-
             string message = "";
             messageGame.Version = 1;
             message = messageGame.ToJson();
@@ -88,8 +73,6 @@ namespace GrpArbFourInDeathRow
                 BinaryWriter w = new BinaryWriter(n);
                 w.Write(message);
                 w.Flush();
-
-
                 //client.Close();
             }
             catch (Exception ex)
@@ -97,24 +80,5 @@ namespace GrpArbFourInDeathRow
                 Console.WriteLine(ex.Message);
             }
         }
-        //public void Send( )
-        //{
-
-        //    string message = "tst";
-        //    try
-        //    {
-        //        NetworkStream n = client.GetStream();
-        //        BinaryWriter w = new BinaryWriter(n);
-        //        w.Write(message);
-        //        w.Flush();
-
-
-        //        //client.Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
     }
 }

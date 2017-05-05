@@ -59,7 +59,7 @@
                     <RowDefinition Height="31*" />
                     <RowDefinition Height="14*"/>
                 </Grid.RowDefinitions>
-                <Canvas Width="210" Height="180" Background="LightGray" Grid.ColumnSpan="7" Grid.RowSpan="2" Name="graphicsBox">
+                <Canvas Width="210" Height="180" Background="#638DE1" Grid.ColumnSpan="7" Grid.RowSpan="2" Name="graphicsBox">
                     <Canvas.Effect>
                         <DropShadowEffect BlurRadius="0" Direction="245" RenderingBias="Quality" ShadowDepth="4" Color="LightGray" />
                     </Canvas.Effect>

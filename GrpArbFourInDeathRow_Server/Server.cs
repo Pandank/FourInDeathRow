@@ -84,15 +84,9 @@ namespace GrpArbFourInDeathRow_Server
                         w.Write(messageJson);
                         w.Flush();
                         game = new Game(this);
-                        game.StartGame(); //starts the NEW game
-                        //StartGameSeassion(client);
-
-
+                        game.StartGame(); 
                     }
-                    else
-                    {
-                        messageGame.PlayerName = "SOMETHING WENT WRONG";
-                    }
+
                     Console.WriteLine("AUTHoutput:" + messageJson);
                     break;
                 //case "Movehandler":

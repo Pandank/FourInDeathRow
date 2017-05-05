@@ -26,6 +26,8 @@ namespace GrpArbFourInDeathRow
         public MainWindow()
         {
             InitializeComponent();
+            DrawBoardInit();
+            LockGameBoard();
         }
 
         public void DrawBoard()
@@ -48,21 +50,40 @@ namespace GrpArbFourInDeathRow
                         newDot.Fill = new SolidColorBrush(Colors.Yellow);
                     else
                         newDot.Fill = new SolidColorBrush(Colors.White);
-                    Canvas.SetLeft(newDot, (x * 30));
-                    Canvas.SetTop(newDot, (y * -30 + 150));
+                    Canvas.SetLeft(newDot, x * 30);
+                    Canvas.SetTop(newDot, y * -30 + 150);
+                    graphicsBox.Children.Add(newDot);
+                }
+            }
+        }
+        public void DrawBoardInit()
+        {
+            for (int y = 5; y >= 0; y--)
+            {
+                for (int x = 6; x >= 0; x--)
+                {
+                    Ellipse newDot = new Ellipse
+                    {
+                        Width = 26,
+                        Height = 26,
+                        Margin = new System.Windows.Thickness(2),
+                        StrokeThickness = 1,
+                        Stroke = new SolidColorBrush(Colors.DarkGray)
+                    };
 
-                    //game.
-
+                    newDot.Fill = new SolidColorBrush(Colors.White);
+                    Canvas.SetLeft(newDot, x * 30);
+                    Canvas.SetTop(newDot, y * -30 + 150);
                     graphicsBox.Children.Add(newDot);
                 }
             }
         }
 
 
+
         private void GameBtn_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button) sender;
-            //MessageBox.Show(button.Name);
+            Button button = (Button)sender;
 
             int[] coords = game.IsValidMove(button);
             if (coords[0] != -1)
@@ -102,11 +123,10 @@ namespace GrpArbFourInDeathRow
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            //todo clean up
+            
             game = new Game(this);
             var gameThread = new Thread(game.StartGame);
             gameThread.Start();
-
             DrawBoard();
         }
     }

@@ -18,10 +18,8 @@ namespace GrpArbFourInDeathRow_Server
         public void Run()
         {
             var messageGame = new MessageGame();
-
             try
             {
-
                 while (true)
                 {
                     NetworkStream n = tcpclient.GetStream();
@@ -30,7 +28,6 @@ namespace GrpArbFourInDeathRow_Server
 
                     Console.WriteLine("INPUT: " + message);
                     myServer.Broadcast(this, message);
-
                 }
 
 

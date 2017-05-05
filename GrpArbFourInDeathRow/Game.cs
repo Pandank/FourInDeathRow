@@ -13,7 +13,6 @@ namespace GrpArbFourInDeathRow
     {
         public string UserName { get; set; }
         public string Info { get; set; }
-
         public int[,] GameBoard = new int[7, 6];
         private Client myClient;
         private MainWindow _mainWindow;
@@ -21,16 +20,13 @@ namespace GrpArbFourInDeathRow
         public Game(MainWindow mainWindow)
         {
             _mainWindow = mainWindow;
-
         }
-
         public void StartGame()
         {
             StartClient();
             GetUserName();
             _mainWindow.Dispatcher.Invoke(_mainWindow.LockGameBoard);
         }
-
         private void GetUserName()
         {
             var messageGame = new MessageGame
@@ -39,9 +35,7 @@ namespace GrpArbFourInDeathRow
                 Text = "@UserName"
             };
             myClient.Send(messageGame);
-
         }
-
         public void SendMoveToServer(int[] coords)
         {
             var messageGame = new MessageGame
@@ -54,19 +48,13 @@ namespace GrpArbFourInDeathRow
             };
             myClient.Send(messageGame);
             _mainWindow.Dispatcher.Invoke(_mainWindow.LockGameBoard);
-
         }
-
-
-
         public void StartClient()
         {
-
             myClient = new Client(this);
             Thread clientThread = new Thread(myClient.Start);
             clientThread.Start();
         }
-
         public int[] IsValidMove(Button button)
         {
             int column = Int32.Parse(button.Name[3].ToString()) - 1;
@@ -81,7 +69,6 @@ namespace GrpArbFourInDeathRow
                         validYpos = y;
                     }
                 }
-
             }
 
             if (validYpos <= 5)
@@ -96,7 +83,6 @@ namespace GrpArbFourInDeathRow
                 coords[1] = -1;
                 return coords;
             }
-
         }
         //public int[] CalculateMove(string buttonName)
         //{
@@ -131,14 +117,11 @@ namespace GrpArbFourInDeathRow
         //    }
         //}
 
-
         public void AuthResponse(MessageGame messageGame)
         {
             UserName = messageGame.PlayerName;
             _mainWindow.Dispatcher.Invoke(_mainWindow.UpdateInfoBox);
-
         }
-
         public void StartGame(MessageGame messageGame)
         {
             if (messageGame.PlayerName == UserName)
@@ -164,26 +147,22 @@ namespace GrpArbFourInDeathRow
             }
             if (messageGame.PlayerName != UserName)
             {
-                //our turn
                 _mainWindow.Dispatcher.Invoke(_mainWindow.UnlockGameBoard);
                 Info = "Your turn";
-
             }
             else
             {
-                //not our turn
                 Info = "Opponents turn";
             }
             _mainWindow.Dispatcher.Invoke(_mainWindow.UpdateInfoBox);
-
         }
-
 
         public void GameOver(MessageGame messageGame)
         {
             _mainWindow.Dispatcher.Invoke(_mainWindow.LockGameBoard);
-            MessageBox.Show(messageGame.PlayerName + " Won the game!");
 
+            Info = messageGame.PlayerName + " Won the game!";
+            _mainWindow.Dispatcher.Invoke(_mainWindow.UpdateInfoBox);
         }
     }
 }

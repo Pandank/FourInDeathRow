@@ -10,8 +10,6 @@ namespace GrpArbFourInDeathRow_Server
 {
     class Program
     {
-
-
         static void Main(string[] args)
         {
             Server myServer = new Server();
@@ -19,9 +17,6 @@ namespace GrpArbFourInDeathRow_Server
             serverThread.Start();
             serverThread.Join();
         }
-
-        
-
         
     }
 }

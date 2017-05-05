@@ -16,7 +16,6 @@ namespace GrpArbFourInDeathRow_Server
             _server = server;
         }
 
-        //StartGame när 2 är connected till servern
         public void StartGame()
         {
             InitiateBoard();
@@ -112,17 +111,8 @@ namespace GrpArbFourInDeathRow_Server
         }
 
 
-
-
-
-
-        //todo actually break the gameloop
         public void CheckWin(MessageGame messageGame)
         {
-            //if we win abort the session
-
-
-
             //horizontal
             for (int y = 0; y <= 5; y++)
             {
@@ -132,11 +122,9 @@ namespace GrpArbFourInDeathRow_Server
                         GameBoard[x, y] == GameBoard[x + 2, y] &&
                         GameBoard[x, y] == GameBoard[x + 3, y])
                     {
-
                         //won
                         Console.WriteLine("won");
                         messageGame.GameOver = true;
-
                     }
                 }
             }
@@ -196,21 +184,10 @@ namespace GrpArbFourInDeathRow_Server
                 }
             }
             messageGame.IsFromServer = true;
-
-
-
             if (messageGame.IsFromServer && messageGame.GameOver)
             {
                 Movehandler(messageGame);
-
             }
-
         }
-
-
-
-
-
-
     }
 }
