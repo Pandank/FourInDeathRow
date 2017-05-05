@@ -13,10 +13,11 @@ namespace GrpArbFourInDeathRow_Server
         static void Main(string[] args)
         {
             Server myServer = new Server();
-            Thread serverThread = new Thread(myServer.Run);
-            serverThread.Start();
-            serverThread.Join();
+            //Thread serverThread = new Thread(myServer.Run);
+            //serverThread.Start();
+            //serverThread.Join();
+            myServer.Run();
         }
-        
+
     }
 }

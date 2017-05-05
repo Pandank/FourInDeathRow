@@ -12,7 +12,7 @@ namespace GrpArbFourInDeathRow_Server
     public class Server
     {
         List<ClientHandler> clients = new List<ClientHandler>();
-        private Game game;
+        private GameServer game;
         public void Run()
         {
             TcpListener listener = new TcpListener(IPAddress.Any, 5000);
@@ -42,7 +42,7 @@ namespace GrpArbFourInDeathRow_Server
                     listener.Stop();
             }
         }
-        //new
+
         public void Broadcast(MessageGame messageGameToClients)
         {
             var messageToClientsJson = "";
@@ -83,34 +83,25 @@ namespace GrpArbFourInDeathRow_Server
                         messageJson = messageGame.ToJson();
                         w.Write(messageJson);
                         w.Flush();
-                        game = new Game(this);
+                        game = new GameServer(this);
                         game.StartGame(); 
                     }
 
                     Console.WriteLine("AUTHoutput:" + messageJson);
                     break;
-                //case "Movehandler":
-                //    foreach (var clientHandler in clients)
-                //    {
-                //        NetworkStream nTemp = clientHandler.tcpclient.GetStream();
-                //        BinaryWriter wTemp = new BinaryWriter(nTemp);
-                //        messageGame.MessageType = "MoveResponse";
-                //        messageJson = messageGame.ToJson();
-                //        wTemp.Write(messageJson);
-                //        wTemp.Flush();
-                //    }
-                //    Console.WriteLine("MOVEoutput:" + messageJson);
-                //    break;
-                case "Begin":
+                case "ResetRequest":
+                    //game.GameBoard = new int[7, 6];
+                    //MessageGame messageReset = new MessageGame
+                    //{
+                    //    BoardState = game.GameBoard
+                    //};
+                    //Broadcast(messageReset);
+                    game.InitiateBoard();
+                    break;
 
-                    w.Write(messageJson);
-                    w.Flush();
-                    Console.WriteLine("BEGINoutput: " + messageJson);
-                    break;
-                case "Error":
-                    break;
                 default:
-                    break;
+                    throw new ArgumentException();
+                    
             }
 
         }

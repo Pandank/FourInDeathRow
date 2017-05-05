@@ -9,12 +9,14 @@ namespace GrpArbFourInDeathRow
 
     public class Client
     {
-        public Client(Game game)
+        public Client(Game game, MainWindow mainWindow)
         {
             _game = game;
+            _mainWindow = mainWindow;
         }
         private TcpClient client;
         private Game _game;
+        private MainWindow _mainWindow;
 
         public void Start()
         {
@@ -43,6 +45,9 @@ namespace GrpArbFourInDeathRow
                         case "AuthResponse":
                             _game.AuthResponse(messageGame);
                             break;
+                        //case "GameReset":
+                        //    _mainWindow.Dispatcher.Invoke(_mainWindow.ResetGame);
+                            //break;
                         case "StartGame":
                             _game.StartGame(messageGame);
                             break;

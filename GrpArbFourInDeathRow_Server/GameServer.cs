@@ -3,7 +3,7 @@ using GrpArbFourInDeathRow_MessageLib;
 
 namespace GrpArbFourInDeathRow_Server
 {
-    public class Game
+    public class GameServer
     {
 
         //gameboard
@@ -11,7 +11,7 @@ namespace GrpArbFourInDeathRow_Server
 
         private Server _server;
 
-        public Game(Server server)
+        public GameServer(Server server)
         {
             _server = server;
         }
@@ -20,7 +20,7 @@ namespace GrpArbFourInDeathRow_Server
         {
             InitiateBoard();
         }
-        private void InitiateBoard()
+        public void InitiateBoard()
         {
             for (int x = 0; x < GameBoard.GetLength(0); x++)
             {

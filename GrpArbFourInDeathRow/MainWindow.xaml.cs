@@ -100,7 +100,7 @@ namespace GrpArbFourInDeathRow
         {
             foreach (object o in myGrid.Children)
             {
-                if (o is Button button)
+                if (o is Button button && button.Name.StartsWith("Col"))
                     button.Click -= GameBtn_Click;
             }
         }
@@ -109,7 +109,7 @@ namespace GrpArbFourInDeathRow
         {
             foreach (object o in myGrid.Children)
             {
-                if (o is Button button)
+                if (o is Button button && button.Name.StartsWith("Col"))
                     button.Click += GameBtn_Click;
             }
         }
@@ -123,11 +123,30 @@ namespace GrpArbFourInDeathRow
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+
             game = new Game(this);
             var gameThread = new Thread(game.StartGame);
             gameThread.Start();
             DrawBoard();
+            StartGame.IsEnabled = false;
+            StartGame.Visibility = Visibility.Hidden;
+
+
+        }
+
+
+        //public void ResetGame()
+        //{
+        //    game = new Game(this);
+        //    var gameThread = new Thread(game.StartGame);
+        //    gameThread.Start();
+        //}
+
+        private void ResetGameBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            game.ResetRequest();
+            //ResetGame();
         }
     }
 }

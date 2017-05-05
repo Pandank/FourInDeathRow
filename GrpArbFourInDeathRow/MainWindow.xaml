@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GrpArbFourInDeathRow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="💩" Height="350" Width="525">
     <Window.Resources>
         <Style x:Key="MyButtonStyle" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -97,7 +97,9 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center" FontWeight="DemiBold" Name="UserName"></Label>
             <Label FontSize="20" Foreground="Black" HorizontalAlignment="Center" FontWeight="Black" Name="InfoLabel"></Label>
-            <Button Height="20" Width="80" Content="Start Game" Click="StartBtn_Click" Margin="0,55,0,0" />
+            <Button Height="20" Width="80" Content="Start Game" Click="StartBtn_Click" Margin="0,55,0,0" Name="StartGame"/>
+            <Button Height="20" Width="80" Content="ResetGame"  Margin="0,55,0,0" Name="ResetGameBtn" Click="ResetGameBtn_Click"/>
+
         </StackPanel>
     </Grid>
 </Window>
