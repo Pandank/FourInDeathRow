@@ -50,14 +50,17 @@ namespace GrpArbFourInDeathRow
                         case "AuthResponse":
                             _game.AuthResponse(messageGame);
                             break;
-                        case "MoveResponse":
-                            _game.ProcessMove(messageGame);
-                            break;
-                        case "Begin":
-                            _game.Begin(messageGame);
+                        //case "MoveResponse":
+                        //    _game.ProcessMove(messageGame);
+                        //    break;
+                        case "StartGame":
+                            _game.StartGame(messageGame);
                             break;
                         case "GameBoardUpdate":
                             _game.UpdateGameBoard(messageGame);
+                            break;
+                        case "GameOver":
+                            _game.GameOver(messageGame);
                             break;
                         case "Error":
                             break;
