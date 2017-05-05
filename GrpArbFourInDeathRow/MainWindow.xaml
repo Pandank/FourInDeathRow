@@ -95,9 +95,8 @@
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center" FontWeight="DemiBold">Spelarnamn</Label>
-            <Label FontSize="20" Foreground="Black" HorizontalAlignment="Center" FontWeight="Black">Vs.</Label>
-            <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center" FontWeight="DemiBold">Motståndarnamn</Label>
+            <Label FontSize="20" Foreground="Green" HorizontalAlignment="Center" FontWeight="DemiBold" Name="UserName"></Label>
+            <Label FontSize="20" Foreground="Black" HorizontalAlignment="Center" FontWeight="Black" Name="InfoLabel"></Label>
             <Button Height="20" Width="80" Content="Start Game" Click="StartBtn_Click" Margin="0,55,0,0" />
         </StackPanel>
     </Grid>

@@ -22,6 +22,7 @@ namespace GrpArbFourInDeathRow
     public partial class MainWindow : Window
     {
         private Game game;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -57,29 +58,25 @@ namespace GrpArbFourInDeathRow
             }
         }
 
+
         private void GameBtn_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
+            Button button = (Button) sender;
             //MessageBox.Show(button.Name);
 
-            int[] coords = game.CalculateMove(button.Name);
-
-            if (coords[1] <= 5 && coords[1] >= 0)
+            int[] coords = game.IsValidMove(button);
+            if (coords[0] != -1)
             {
-                game.SendMoveToServer(coords[0], coords[1]);
-                //we dont need this but keep it for now
-                //if (coords[1]==5)
-                //{
-                //    //button.Click -= GameBtn_Click;
-                //}
+                game.SendMoveToServer(coords);
             }
-
-
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public void LockGameBoard()
         {
-
             foreach (object o in myGrid.Children)
             {
                 if (o is Button button)
@@ -89,23 +86,28 @@ namespace GrpArbFourInDeathRow
 
         public void UnlockGameBoard()
         {
-
             foreach (object o in myGrid.Children)
             {
                 if (o is Button button)
                     button.Click += GameBtn_Click;
             }
         }
-        
+
+        public void UpdateInfoBox()
+        {
+            UserName.Content = game.UserName;
+            InfoLabel.Content = game.Info;
+        }
+
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
+            //todo clean up
             game = new Game(this);
             var gameThread = new Thread(game.StartGame);
             gameThread.Start();
 
             DrawBoard();
-
         }
     }
 }

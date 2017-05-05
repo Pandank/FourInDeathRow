@@ -20,7 +20,7 @@ namespace GrpArbFourInDeathRow
 
         public void Start()
         {
-            client = new TcpClient("192.168.25.73", 5000);
+            client = new TcpClient("192.168.25.129", 5000);
 
             Thread listenerThread = new Thread(Listen);
             listenerThread.Start();
@@ -50,14 +50,17 @@ namespace GrpArbFourInDeathRow
                         case "AuthResponse":
                             _game.AuthResponse(messageGame);
                             break;
-                        case "MoveResponse":
-                            _game.ProcessMove(messageGame);
-                            break;
-                        case "Begin":
-                            _game.Begin(messageGame);
+                        //case "MoveResponse":
+                        //    _game.ProcessMove(messageGame);
+                        //    break;
+                        case "StartGame":
+                            _game.StartGame(messageGame);
                             break;
                         case "GameBoardUpdate":
                             _game.UpdateGameBoard(messageGame);
+                            break;
+                        case "GameOver":
+                            _game.GameOver(messageGame);
                             break;
                         case "Error":
                             break;

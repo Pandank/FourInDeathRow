@@ -31,8 +31,6 @@ namespace GrpArbFourInDeathRow_Server
                     Console.WriteLine("INPUT: " + message);
                     myServer.Broadcast(this, message);
 
-
-
                 }
 
 

@@ -12,6 +12,7 @@ namespace GrpArbFourInDeathRow_Server
     public class Server
     {
         List<ClientHandler> clients = new List<ClientHandler>();
+        private Game game;
         public void Run()
         {
             TcpListener listener = new TcpListener(IPAddress.Any, 5000);
@@ -53,7 +54,7 @@ namespace GrpArbFourInDeathRow_Server
                 wTemp.Write(messageToClientsJson);
                 wTemp.Flush();
             }
-            Console.WriteLine("MOVEoutput:" + messageToClientsJson);
+            Console.WriteLine("GAMEoutput:" + messageToClientsJson);
         }
         public void Broadcast(ClientHandler client, string messageJson)
         {
@@ -63,7 +64,9 @@ namespace GrpArbFourInDeathRow_Server
             BinaryWriter w = new BinaryWriter(n);
             switch (messageGame.MessageType)
             {
-
+                case "PlayerMove":
+                    game.Movehandler(messageGame);
+                    break;
                 case "Auth":
                     messageGame.MessageType = "AuthResponse";
                     if (client == clients[0])
@@ -80,9 +83,9 @@ namespace GrpArbFourInDeathRow_Server
                         messageJson = messageGame.ToJson();
                         w.Write(messageJson);
                         w.Flush();
-                        Game game = new Game(this);
+                        game = new Game(this);
                         game.StartGame(); //starts the NEW game
-                        StartGameSeassion(client);
+                        //StartGameSeassion(client);
 
 
                     }
@@ -92,18 +95,18 @@ namespace GrpArbFourInDeathRow_Server
                     }
                     Console.WriteLine("AUTHoutput:" + messageJson);
                     break;
-                case "Movehandler":
-                    foreach (var clientHandler in clients)
-                    {
-                        NetworkStream nTemp = clientHandler.tcpclient.GetStream();
-                        BinaryWriter wTemp = new BinaryWriter(nTemp);
-                        messageGame.MessageType = "MoveResponse";
-                        messageJson = messageGame.ToJson();
-                        wTemp.Write(messageJson);
-                        wTemp.Flush();
-                    }
-                    Console.WriteLine("MOVEoutput:" + messageJson);
-                    break;
+                //case "Movehandler":
+                //    foreach (var clientHandler in clients)
+                //    {
+                //        NetworkStream nTemp = clientHandler.tcpclient.GetStream();
+                //        BinaryWriter wTemp = new BinaryWriter(nTemp);
+                //        messageGame.MessageType = "MoveResponse";
+                //        messageJson = messageGame.ToJson();
+                //        wTemp.Write(messageJson);
+                //        wTemp.Flush();
+                //    }
+                //    Console.WriteLine("MOVEoutput:" + messageJson);
+                //    break;
                 case "Begin":
 
                     w.Write(messageJson);
@@ -118,20 +121,7 @@ namespace GrpArbFourInDeathRow_Server
 
         }
 
-        private void StartGameSeassion(ClientHandler client)
-        {
-            Random random = new Random();
-            MessageGame messageGame = new MessageGame
-            {
-                Version = 1,
-                MessageType = "Begin",
-                PlayerName = "Player"+random.Next(1,3)
-                
-            };
-            var messageJson = messageGame.ToJson();
-            Broadcast(client, messageJson);
-
-        }
+       
 
         public void DisconnectClient(ClientHandler client)
         {
