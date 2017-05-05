@@ -38,9 +38,11 @@ namespace GrpArbFourInDeathRow
 
         private void GetUserName()
         {
-            var messageGame = new MessageGame();
-            messageGame.MessageType = "Auth";
-            messageGame.Text = "@UserName";
+            var messageGame = new MessageGame
+            {
+                MessageType = "Auth",
+                Text = "@UserName"
+            };
             myClient.Send(messageGame);
 
         }
@@ -49,11 +51,13 @@ namespace GrpArbFourInDeathRow
 
         public void SendMoveToServer(int x, int y)
         {
-            var messageGame = new MessageGame();
-            messageGame.CoordX = x;
-            messageGame.CoordY = y;
-            messageGame.MessageType = "Move";
-            messageGame.PlayerName = UserName;
+            var messageGame = new MessageGame
+            {
+                CoordX = x,
+                CoordY = y,
+                MessageType = "Move",
+                PlayerName = UserName
+            };
             myClient.Send(messageGame);
             _mainWindow.Dispatcher.Invoke(_mainWindow.LockGameBoard);
 
@@ -175,69 +179,69 @@ namespace GrpArbFourInDeathRow
 
         private void CheckForWin()
         {
-            //horizontal
-            for (int y = 0; y <= 5; y++)
-            {
-                for (int x = 0; x <= 3; x++)
+                //horizontal
+                for (int y = 0; y <= 5; y++)
                 {
-                    if (GameBoard[x, y] != 0 && GameBoard[x, y] == GameBoard[x + 1, y] &&
-                        GameBoard[x, y] == GameBoard[x + 2, y] &&
-                        GameBoard[x, y] == GameBoard[x + 3, y])
+                    for (int x = 0; x <= 3; x++)
                     {
+                        if (GameBoard[x, y] != 0 && GameBoard[x, y] == GameBoard[x + 1, y] &&
+                            GameBoard[x, y] == GameBoard[x + 2, y] &&
+                            GameBoard[x, y] == GameBoard[x + 3, y])
+                        {
 
-                        MessageBox.Show("YOUWIN");
+                            MessageBox.Show("YOUWIN");
+                        }
                     }
                 }
-            }
 
-            //vertical
-            for (int y = 0; y <= 2; y++)
-            {
-                for (int x = 0; x <= 6; x++)
+                //vertical
+                for (int y = 0; y <= 2; y++)
                 {
-                    if (GameBoard[x, y] != 0 &&
-                        GameBoard[x, y] == GameBoard[x, y + 1] &&
-                        GameBoard[x, y] == GameBoard[x, y + 2] &&
-                        GameBoard[x, y] == GameBoard[x, y + 3])
+                    for (int x = 0; x <= 6; x++)
                     {
+                        if (GameBoard[x, y] != 0 &&
+                            GameBoard[x, y] == GameBoard[x, y + 1] &&
+                            GameBoard[x, y] == GameBoard[x, y + 2] &&
+                            GameBoard[x, y] == GameBoard[x, y + 3])
+                        {
 
-                        MessageBox.Show("YOUWIN");
+                            MessageBox.Show("YOUWIN");
+                        }
                     }
                 }
-            }
 
 
-            //diagonal falling to the left
-            for (int y = 0; y <= 2; y++)
-            {
-                for (int x = 0; x <= 3; x++)
+                //diagonal falling to the left
+                for (int y = 0; y <= 2; y++)
                 {
-                    if (GameBoard[x, y] != 0 &&
-                        GameBoard[x, y] == GameBoard[x + 1, y + 1] &&
-                        GameBoard[x, y] == GameBoard[x + 2, y + 2] &&
-                        GameBoard[x, y] == GameBoard[x + 3, y + 3])
+                    for (int x = 0; x <= 3; x++)
                     {
+                        if (GameBoard[x, y] != 0 &&
+                            GameBoard[x, y] == GameBoard[x + 1, y + 1] &&
+                            GameBoard[x, y] == GameBoard[x + 2, y + 2] &&
+                            GameBoard[x, y] == GameBoard[x + 3, y + 3])
+                        {
 
-                        MessageBox.Show("YOUWIN");
+                            MessageBox.Show("YOUWIN");
+                        }
                     }
                 }
-            }
 
-            //diagonal falling to the right
-            for (int y = 0; y <= 2; y++)
-            {
-                for (int x = 3; x <= 6; x++)
+                //diagonal falling to the right
+                for (int y = 0; y <= 2; y++)
                 {
-                    if (GameBoard[x, y] != 0 &&
-                        GameBoard[x, y] == GameBoard[x - 1, y + 1] &&
-                        GameBoard[x, y] == GameBoard[x - 2, y + 2] &&
-                        GameBoard[x, y] == GameBoard[x - 3, y + 3])
+                    for (int x = 3; x <= 6; x++)
                     {
+                        if (GameBoard[x, y] != 0 &&
+                            GameBoard[x, y] == GameBoard[x - 1, y + 1] &&
+                            GameBoard[x, y] == GameBoard[x - 2, y + 2] &&
+                            GameBoard[x, y] == GameBoard[x - 3, y + 3])
+                        {
 
-                        MessageBox.Show("YOUWIN");
+                            MessageBox.Show("YOUWIN");
+                        }
                     }
                 }
-            }
 
 
 
@@ -261,5 +265,12 @@ namespace GrpArbFourInDeathRow
             }
         }
 
+        public void UpdateGameBoard(MessageGame messageGame)
+        {
+            if (messageGame.IsFromServer)
+            {
+                GameBoard = messageGame.BoardState;
+            }
+        }
     }
 }

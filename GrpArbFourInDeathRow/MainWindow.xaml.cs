@@ -33,12 +33,14 @@ namespace GrpArbFourInDeathRow
             {
                 for (int x = 6; x >= 0; x--)
                 {
-                    Ellipse newDot = new Ellipse();
-                    newDot.Width = 26;
-                    newDot.Height = 26;
-                    newDot.Margin = new System.Windows.Thickness(2);
-                    newDot.StrokeThickness = 1;
-                    newDot.Stroke = new SolidColorBrush(Colors.DarkGray);
+                    Ellipse newDot = new Ellipse
+                    {
+                        Width = 26,
+                        Height = 26,
+                        Margin = new System.Windows.Thickness(2),
+                        StrokeThickness = 1,
+                        Stroke = new SolidColorBrush(Colors.DarkGray)
+                    };
                     if (game.GameBoard[x, y] == 1)
                         newDot.Fill = new SolidColorBrush(Colors.Red);
                     else if (game.GameBoard[x, y] == 2)

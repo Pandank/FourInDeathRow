@@ -22,7 +22,7 @@ namespace GrpArbFourInDeathRow_Server
             try
             {
 
-                while (messageGame.Text != "Quit")
+                while (true)
                 {
                     NetworkStream n = tcpclient.GetStream();
                     var message = new BinaryReader(n).ReadString();

@@ -41,7 +41,20 @@ namespace GrpArbFourInDeathRow_Server
                     listener.Stop();
             }
         }
-
+        //new
+        public void Broadcast(MessageGame messageGameToClients)
+        {
+            var messageToClientsJson = "";
+            foreach (var clientHandler in clients)
+            {
+                NetworkStream nTemp = clientHandler.tcpclient.GetStream();
+                BinaryWriter wTemp = new BinaryWriter(nTemp);
+                messageToClientsJson = messageGameToClients.ToJson();
+                wTemp.Write(messageToClientsJson);
+                wTemp.Flush();
+            }
+            Console.WriteLine("MOVEoutput:" + messageToClientsJson);
+        }
         public void Broadcast(ClientHandler client, string messageJson)
         {
             MessageGame messageGame = new MessageGame();
@@ -67,6 +80,8 @@ namespace GrpArbFourInDeathRow_Server
                         messageJson = messageGame.ToJson();
                         w.Write(messageJson);
                         w.Flush();
+                        Game game = new Game(this);
+                        game.StartGame(); //starts the NEW game
                         StartGameSeassion(client);
 
 
@@ -77,7 +92,7 @@ namespace GrpArbFourInDeathRow_Server
                     }
                     Console.WriteLine("AUTHoutput:" + messageJson);
                     break;
-                case "Move":
+                case "Movehandler":
                     foreach (var clientHandler in clients)
                     {
                         NetworkStream nTemp = clientHandler.tcpclient.GetStream();
@@ -124,5 +139,7 @@ namespace GrpArbFourInDeathRow_Server
             Console.WriteLine("Client X has left the building...");
             Broadcast(client, "Client X has left the building...");
         }
+
+
     }
 }

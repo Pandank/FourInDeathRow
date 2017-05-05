@@ -6,6 +6,9 @@
         public int CoordY { get; set; }
         public int[,] BoardState { get; set; }
 
+        public bool GameOver { get; set; }
+        public bool IsFromServer { get; set; }
+
 
         public  MessageGame FromJson(string jsonMsg)
         {

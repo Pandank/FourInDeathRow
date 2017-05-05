@@ -45,7 +45,7 @@
         </StackPanel>
         -->
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Grid Width="210" Height="180">
+            <Grid Width="210" Height="180" Name="myGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
