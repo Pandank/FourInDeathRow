@@ -24,12 +24,20 @@ namespace GrpArbFourInDeathRow_Server
 
                 while (true)
                 {
-                    TcpClient c = listener.AcceptTcpClient();
-                    ClientHandler newClient = new ClientHandler(c, this);
-                    clients.Add(newClient);
+                    if (clients.Count >=2)
+                    {
+                        //no
+                    }
+                    else
+                    {
 
-                    Thread clientThread = new Thread(newClient.Run);
-                    clientThread.Start();
+                        TcpClient c = listener.AcceptTcpClient();
+                        ClientHandler newClient = new ClientHandler(c, this);
+                        clients.Add(newClient);
+
+                        Thread clientThread = new Thread(newClient.Run);
+                        clientThread.Start();
+                    }
                 }
             }
             catch (Exception ex)
